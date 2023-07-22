@@ -3,6 +3,9 @@ import { ChangeEvent, useCallback, useState } from 'react';
 import Input from '../Input';
 import Modal from '../Modal';
 import useRegisterModal from '@/hooks/useRegisterModal';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { signIn } from 'next-auth/react';
 
 const RegisterModal = () => {
   const loginModal = useLoginModal();
@@ -16,30 +19,30 @@ const RegisterModal = () => {
 
   const inputs = [
     {
-      placeHolder: 'Email',
+      placeholder: 'Email',
       onChange: (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
+      disabled: isLoading,
       value: email,
-      disabled: isLoading,
     },
     {
-      placeHolder: 'Name',
+      placeholder: 'Name',
       onChange: (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value),
-      value: name,
       disabled: isLoading,
+      value: name,
     },
     {
-      placeHolder: 'Username',
+      placeholder: 'Username',
       onChange: (e: ChangeEvent<HTMLInputElement>) =>
         setUsername(e.target.value),
-      value: username,
       disabled: isLoading,
+      value: username,
     },
     {
-      placeHolder: 'Password',
+      placeholder: 'Password',
       onChange: (e: ChangeEvent<HTMLInputElement>) =>
         setPassword(e.target.value),
-      value: password,
       disabled: isLoading,
+      value: password,
     },
   ];
 
@@ -54,28 +57,25 @@ const RegisterModal = () => {
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
-      // add register later
+
+      await axios.post('/api/register', { email, password, username, name });
+      toast.success('Account created.');
+
+      signIn('credentials', { email, password });
 
       registerModal.onClose();
     } catch (error) {
       console.log(error);
+      toast.error('Something went wrong');
     } finally {
       setIsLoading(false);
     }
-  }, [registerModal]);
+  }, [registerModal, email, password, username, name]);
 
   let bodyContent = (
     <div className='flex flex-col gap-4'>
       {inputs.map((input, index) => {
-        return (
-          <Input
-            key={index}
-            placeHolder={input.placeHolder}
-            onChange={(e) => input.onChange(e)}
-            value={input.value}
-            disabled={isLoading}
-          />
-        );
+        return <Input key={index} {...input} />;
       })}
     </div>
   );
