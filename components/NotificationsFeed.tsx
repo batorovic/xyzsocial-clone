@@ -1,4 +1,4 @@
-import { BsTwitter } from 'react-icons/bs';
+import { Bs123, BsTwitter } from 'react-icons/bs';
 
 import useNotifications from '@/hooks/useNotifications';
 import useCurrentUser from '@/hooks/useCurrentUser';
@@ -28,7 +28,7 @@ const NotificationsFeed = () => {
           key={notification.id}
           className='flex flex-row items-center p-6 gap-4 border-b-[1px] border-neutral-800'
         >
-          <BsTwitter color='white' size={32} />
+          <Bs123 color='white' size={32} />
           <p className='text-white'>{notification.body}</p>
         </div>
       ))}
