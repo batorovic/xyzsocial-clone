@@ -33,8 +33,8 @@ const PostItem: React.FC<PostItemProps> = ({ data = {}, userId }) => {
   }, [router, data.id]);
 
   const onLike = useCallback(
-    async (ev: any) => {
-      ev.stopPropagation();
+    async (event: any) => {
+      event.stopPropagation();
 
       if (!currentUser) {
         return loginModal.onOpen();
