@@ -1,6 +1,6 @@
 # XYZ Social Clone
 
-XYZ Social Clone is a social media application inspired by (original social media app name). This project aims to replicate the key features and design of the original application to provide a similar user experience, using a stack that includes Prisma for database management.
+XYZ Social Clone is a social media application inspired by (twitter). This project aims to replicate the key features and design of the original application to provide a similar user experience, using a stack that includes Prisma for database management. Project made along with youtube tutorial.
 
 ## Live Demo
 https://xyzsocial-clone.vercel.app/
